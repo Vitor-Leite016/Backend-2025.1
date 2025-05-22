@@ -1,26 +1,15 @@
 import express from 'express';
+import useWebRoutes from './web.js';
 
 const app = express();
 const PORT = 3000;
 
-app.get('/', (req, res) => {
-  res.send('Qualquer coisa');
-});
+useWebRoutes(app);
 
-app.get('/Vitor', (req, res) => {
-    res.send('Vitor é mo massa');
-  });
-
-  app.get('/user/:id', (req, res) => {
-
-    res.json({
-        params: req.params,
-        query: req.query,
-        method: req.method,
-        headers: req.headers,
-    });
-  
-});
+//Configuração EJS
+app.use(express.static('./public'));
+app.set('view engine', 'ejs');
+app.set('views', './views');
 
 app.listen(PORT, () => {
   console.log(`Servidor escutando em  http://127.0.0.1:${PORT}`);
